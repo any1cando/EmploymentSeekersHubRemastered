@@ -32,11 +32,13 @@ class MainActivity : AppCompatActivity() {
 
 
     // Метод, с помощью которого можно переходить между фрагментами
+    // По умол
     fun navigateToFragment(fragment: Fragment, addToBackStack: Boolean = true) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.authorizationAndRegistrationFragmentContainer, fragment)
-        fragmentTransaction.addToBackStack(null)
+        // Проверяем true/false - и от этого решаем, будет ли транзакция сохранена в стек
+        if (addToBackStack) fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 }
