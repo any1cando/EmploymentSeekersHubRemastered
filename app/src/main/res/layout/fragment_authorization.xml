@@ -13,7 +13,7 @@
 
 
         <TextView
-            android:id="@+id/startHelloTextView"
+            android:id="@+id/tvStartHello"
             style="@style/AuthTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,20 +26,20 @@
 
 
         <TextView
-            android:id="@+id/yourEmailTextView"
+            android:id="@+id/tvYourEmail"
             style="@style/AuthTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:text="Your email"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/loginEditText"
-            app:layout_constraintEnd_toEndOf="@id/loginEditText"
-            app:layout_constraintStart_toStartOf="@id/loginEditText" />
+            app:layout_constraintBottom_toTopOf="@id/etLogin"
+            app:layout_constraintEnd_toEndOf="@id/etLogin"
+            app:layout_constraintStart_toStartOf="@id/etLogin" />
 
 
         <EditText
-            android:id="@+id/loginEditText"
+            android:id="@+id/etLogin"
             style="@style/AuthEditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,24 +51,24 @@
             android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/startHelloTextView" />
+            app:layout_constraintTop_toBottomOf="@id/tvStartHello" />
 
 
         <TextView
-            android:id="@+id/yourPasswordTextView"
+            android:id="@+id/tvYourPassword"
             style="@style/AuthTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:text="Your password"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/passwordEditText"
-            app:layout_constraintEnd_toEndOf="@id/passwordEditText"
-            app:layout_constraintStart_toStartOf="@id/passwordEditText" />
+            app:layout_constraintBottom_toTopOf="@id/etPassword"
+            app:layout_constraintEnd_toEndOf="@id/etPassword"
+            app:layout_constraintStart_toStartOf="@id/etPassword" />
 
 
         <EditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/etPassword"
             style="@style/AuthEditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,11 +80,11 @@
             android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loginEditText" />
+            app:layout_constraintTop_toBottomOf="@id/etLogin" />
 
 
         <TextView
-            android:id="@+id/helpRegistrationTextView"
+            android:id="@+id/tvHelpRegistration"
             style="@style/AuthTextViewStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
             android:textSize="17sp"
             app:layout_constraintEnd_toStartOf="@id/tvRegistration"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
+            app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
 
         <TextView
@@ -110,17 +110,17 @@
             android:gravity="start"
             android:focusable="true"
             android:clickable="true"
-            app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+            app:layout_constraintTop_toBottomOf="@id/etPassword"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/helpRegistrationTextView">
+            app:layout_constraintStart_toEndOf="@id/tvHelpRegistration">
 
         </TextView>
 
 
         <Button
-            android:id="@+id/authorizationButton"
+            android:id="@+id/btnAuthorization"
             style="@style/BlueButtonStyle"
-            android:layout_marginBottom="68dp"
+            android:layout_marginBottom="70dp"
             android:text="Log in"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

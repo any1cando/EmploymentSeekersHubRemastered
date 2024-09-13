@@ -1,15 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#193DBE"
+    android:background="#FFFFFF"
     tools:context=".fragments.entry.point.RegistrationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tvStartHelloUserRegistration"
+            style="@style/AuthTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Create an account"
+            android:textSize="25sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <EditText
+            android:id="@+id/etFirstNameUserRegistration"
+            style="@style/AuthEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:ems="14"
+            android:inputType="text"
+            android:text=""
+            android:hint="Enter your first name..."
+            app:layout_constraintTop_toBottomOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintEnd_toEndOf="@id/tvStartHelloUserRegistration"
+            android:autofillHints="name" />
+
+
+        <EditText
+            android:id="@+id/etLastNameUserRegistration"
+            style="@style/AuthEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:ems="14"
+            android:inputType="text"
+            android:text=""
+            android:hint="Enter your last name..."
+            app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintEnd_toEndOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintTop_toBottomOf="@id/etFirstNameUserRegistration"
+            android:autofillHints="name" />
+
+
+        <EditText
+            android:id="@+id/etEmailUserRegistration"
+            style="@style/AuthEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:ems="14"
+            android:inputType="text"
+            android:text=""
+            android:hint="Enter your email..."
+            app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintEnd_toEndOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintTop_toBottomOf="@id/etLastNameUserRegistration"
+            tools:ignore="TextFields" />
+
+
+        <EditText
+            android:id="@+id/etPasswordUserRegistration"
+            style="@style/AuthEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:ems="14"
+            android:inputType="text"
+            android:text=""
+            android:hint="Enter your password..."
+            app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintEnd_toEndOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintTop_toBottomOf="@id/etEmailUserRegistration"
+            tools:ignore="TextFields" />
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/etPasswordUserRegistration"
+            app:layout_constraintBottom_toTopOf="@id/confirmRegistrationButton">
+
+            <RadioButton
+                android:id="@+id/radioBtnPartOfATeam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Part of a team" />
+
+            <RadioButton
+                android:id="@+id/radioBtnSoloCreator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Solo Creator" />
+        </RadioGroup>
+
+
+        <Button
+            android:id="@+id/confirmRegistrationButton"
+            style="@style/BlueButtonStyle"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="70dp"
+            android:text="Sign up!"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>
