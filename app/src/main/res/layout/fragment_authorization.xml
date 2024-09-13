@@ -1,15 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3D700"
+    android:background="#FFFFFF"
     tools:context=".fragments.entry.point.AuthorizationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/startHelloTextView"
+            style="@style/AuthTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Welcome back!"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/yourEmailTextView"
+            style="@style/AuthTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="Your email"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/loginEditText"
+            app:layout_constraintEnd_toEndOf="@id/loginEditText"
+            app:layout_constraintStart_toStartOf="@id/loginEditText" />
+
+
+        <EditText
+            android:id="@+id/loginEditText"
+            style="@style/AuthEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:autofillHints="emailAddress"
+            android:ems="14"
+            android:hint="Enter your email here..."
+            android:inputType="text"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/startHelloTextView" />
+
+
+        <TextView
+            android:id="@+id/yourPasswordTextView"
+            style="@style/AuthTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="Your password"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/passwordEditText"
+            app:layout_constraintEnd_toEndOf="@id/passwordEditText"
+            app:layout_constraintStart_toStartOf="@id/passwordEditText" />
+
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            style="@style/AuthEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:autofillHints="password"
+            android:ems="14"
+            android:hint="Enter your password here..."
+            android:inputType="textPassword"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginEditText" />
+
+
+        <TextView
+            android:id="@+id/helpRegistrationTextView"
+            style="@style/AuthTextViewStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="end"
+            android:text="No account?"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toStartOf="@id/tvRegistration"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
+
+
+        <TextView
+            android:id="@+id/tvRegistration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            style="@style/AuthTextViewStyle"
+            android:text="Sign up!"
+            android:textColor="@color/selector_color_text_view_link"
+            android:gravity="start"
+            android:focusable="true"
+            android:clickable="true"
+            app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/helpRegistrationTextView">
+
+        </TextView>
+
+
+        <Button
+            android:id="@+id/authorizationButton"
+            style="@style/BlueButtonStyle"
+            android:layout_marginBottom="68dp"
+            android:text="Log in"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
