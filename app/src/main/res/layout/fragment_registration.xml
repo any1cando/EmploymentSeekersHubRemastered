@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:ems="14"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:text=""
             android:hint="Enter your password..."
             app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
@@ -91,12 +91,13 @@
 
 
         <RadioGroup
+            android:id="@+id/radioGroupRegistration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/etPasswordUserRegistration"
-            app:layout_constraintBottom_toTopOf="@id/confirmRegistrationButton">
+            app:layout_constraintBottom_toTopOf="@id/btnConfirmRegistration">
 
             <RadioButton
                 android:id="@+id/radioBtnPartOfATeam"
@@ -117,7 +118,7 @@
 
 
         <Button
-            android:id="@+id/confirmRegistrationButton"
+            android:id="@+id/btnConfirmRegistration"
             style="@style/BlueButtonStyle"
             android:layout_marginTop="70dp"
             android:layout_marginBottom="70dp"

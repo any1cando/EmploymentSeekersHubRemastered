@@ -5,25 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.employmentseekershubremastered.R
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModelProvider
+import com.example.employmentseekershubremastered.AuthAndRegViewModel
 import com.example.employmentseekershubremastered.databinding.FragmentRegistrationBinding
+import java.util.regex.Pattern
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RegistrationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegistrationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var binding: FragmentRegistrationBinding
+    private var binding: FragmentRegistrationBinding? = null
+    private lateinit var viewModel: AuthAndRegViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +34,89 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegistrationBinding.inflate(inflater)
-        // Inflate the layout for this fragment
-        return binding.root
+        // Инициализация ViewModel через контекст фрагмента.
+        viewModel = ViewModelProvider(requireActivity()).get(AuthAndRegViewModel::class.java)
+        // Заполнение полей, если в ViewModel есть какие-то данные
+        restoreRegDataWithViewModel()
+        // Конечная отрисовка для фрагмента
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Обрабатываем 2 радиокнопки с ролями.
+        binding?.radioGroupRegistration?.setOnCheckedChangeListener { registrationRadioGroup, id ->
+            val selectedRole: String? = when (id) {
+                binding?.radioBtnPartOfATeam?.id -> "APPLICANT"
+                binding?.radioBtnSoloCreator?.id -> "COMPANY_OWNER"
+                else -> null
+            }
+            viewModel.selectedRoleIdRegistration = id
+        }
+
+        // Обрабатываем изменения в полях регистрации и добавляем их в ViewModel.
+        binding?.etFirstNameUserRegistration?.doOnTextChanged { textFirstName, _, _, _ ->
+            viewModel.firstNameRegistration = textFirstName.toString()
+        }
+        binding?.etLastNameUserRegistration?.doOnTextChanged { textLastName, _, _, _ ->
+            viewModel.lastNameRegistration = textLastName.toString()
+        }
+        binding?.etEmailUserRegistration?.doOnTextChanged { textEmail, _, _, _ ->
+            viewModel.emailRegistration = textEmail.toString()
+        }
+        binding?.etPasswordUserRegistration?.doOnTextChanged { textPassword, _, _, _ ->
+            viewModel.passwordRegistration = textPassword.toString()
+        }
+
         // Сделать обработчик нажатия на кнопку "Sign Up!", то есть регистрации.
+        binding?.btnConfirmRegistration?.setOnClickListener {
+
+        }
+    }
+
+
+    /** Вызываем метод "onDestroyView()" для того, чтобы очистить binding и избежать утечек памяти.  */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
+
+    private fun registerNewUser() {
 
     }
+
+
+    /** Метод, который проверяет корректность введенной почты. */
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+
+    /** Метод, который проверяет минимальные требования введенного пароля. Это минимум 1 цифра,
+     * 1 маленкая буква, 1 большяа буква, 1 специальный символ, а также пароль должен содержать
+     * минимум 8 символов.
+    */
+    private fun isValidPassword(password: String): Boolean {
+        val passwordPattern = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
+        val pattern = Pattern.compile(passwordPattern)
+        return pattern.matcher(password).matches()
+    }
+
+
+    /** Метод, который возвращает из ViewModel данные о регистрации в поля фрагмента. */
+    private fun restoreRegDataWithViewModel() {
+        binding?.etFirstNameUserRegistration?.setText(viewModel.firstNameRegistration)
+        binding?.etLastNameUserRegistration?.setText(viewModel.lastNameRegistration)
+        binding?.etEmailUserRegistration?.setText(viewModel.emailRegistration)
+        binding?.etPasswordUserRegistration?.setText(viewModel.passwordRegistration)
+
+        if (viewModel.selectedRoleIdRegistration != null) {
+            binding?.radioGroupRegistration?.check(viewModel.selectedRoleIdRegistration!!)
+        }
+    }
+
 
     companion object {
         /**

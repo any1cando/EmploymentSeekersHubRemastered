@@ -3,17 +3,21 @@ package com.example.employmentseekershubremastered
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.employmentseekershubremastered.databinding.ActivityMainBinding
 import com.example.employmentseekershubremastered.databinding.ActivityMainWithBottomNavigationBinding
 import com.example.employmentseekershubremastered.fragments.entry.point.AuthorizationFragment
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var bindingWithBottomNavigation: ActivityMainWithBottomNavigationBinding
+    private lateinit var viewModelAuthAndReg: AuthAndRegViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModelAuthAndReg = ViewModelProvider(this).get(AuthAndRegViewModel::class.java)
         // Инфлейтим binding для макета с реализацией фрагментов через FragmentManager/FragmentTransaction
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -33,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     // Метод, с помощью которого можно переходить между фрагментами
     // По умол
-    fun navigateToFragment(fragment: Fragment, addToBackStack: Boolean = true) {
+    fun navigateToFragment(fragment: Fragment, addToBackStack: Boolean = false) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.authorizationAndRegistrationFragmentContainer, fragment)

@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.employmentseekershubremastered.AuthAndRegViewModel
 import com.example.employmentseekershubremastered.MainActivity
 import com.example.employmentseekershubremastered.R
 import com.example.employmentseekershubremastered.databinding.FragmentAuthorizationBinding
@@ -19,7 +23,8 @@ class AuthorizationFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var binding: FragmentAuthorizationBinding
+    private var binding: FragmentAuthorizationBinding? = null
+    private lateinit var viewModel: AuthAndRegViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,26 +39,50 @@ class AuthorizationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAuthorizationBinding.inflate(inflater)
+        viewModel = ViewModelProvider(requireActivity()).get(AuthAndRegViewModel::class.java)
+        restoreAuthDataWithViewModel()
         // Inflate the layout for this fragment
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Делаю обработчик нажатия на текст "Sign in!", то есть перехожу на фрагмент регистрации.
-        binding.tvRegistration.setOnClickListener {
-            (activity as MainActivity).navigateToFragment(RegistrationFragment())
+        binding?.tvRegistration?.setOnClickListener {
+            (activity as MainActivity).navigateToFragment(RegistrationFragment(), true)
+        }
+
+        // Обрабатываем изменения в полях авторизации и добавляем их в ViewModel.
+        binding?.etLogin?.doOnTextChanged { textEmail, _, _, _ ->
+            viewModel.emailAuthorization = textEmail.toString()
+        }
+        binding?.etPassword?.doOnTextChanged { textPassword, _, _, _ ->
+            viewModel.passwordAuthorization = textPassword.toString()
         }
 
         // Делаю обработчик нажатич на кнопку "Log in", то есть авторизации.
-        binding.btnAuthorization.setOnClickListener {
+//        binding.btnAuthorization.setOnClickListener {
 //            try {
 //
 //            } catch (e: Exception) {
 //
 //            }
-        }
+//        }
+    }
+
+
+    /** Вызываем метод "onDestroyView()" для того, чтобы очистить binding и избежать утечек памяти.  */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
+
+    /** Метод, который возвращает из ViewModel данные об авторизации в поля фрагмента. */
+    private fun restoreAuthDataWithViewModel() {
+        binding?.etLogin?.setText(viewModel.emailAuthorization)
+        binding?.etPassword?.setText(viewModel.passwordRegistration)
     }
 
     companion object {
