@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.employmentseekershubremastered.AuthAndRegViewModel
+import com.example.employmentseekershubremastered.EntryPointViewModel
 import com.example.employmentseekershubremastered.MainActivity
-import com.example.employmentseekershubremastered.R
+import com.example.employmentseekershubremastered.SessionManager
 import com.example.employmentseekershubremastered.databinding.FragmentAuthorizationBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,7 +23,8 @@ class AuthorizationFragment : Fragment() {
     private var param2: String? = null
 
     private var binding: FragmentAuthorizationBinding? = null
-    private lateinit var viewModel: AuthAndRegViewModel
+    private lateinit var viewModel: EntryPointViewModel
+    private val sessionManager: SessionManager = SessionManager(requireContext())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class AuthorizationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAuthorizationBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity()).get(AuthAndRegViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(EntryPointViewModel::class.java)
         restoreAuthDataWithViewModel()
         // Inflate the layout for this fragment
         return binding?.root

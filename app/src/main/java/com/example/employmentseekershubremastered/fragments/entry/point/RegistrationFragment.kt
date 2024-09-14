@@ -1,14 +1,24 @@
 package com.example.employmentseekershubremastered.fragments.entry.point
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
-import com.example.employmentseekershubremastered.AuthAndRegViewModel
+import com.example.employmentseekershubremastered.EntryPointViewModel
+import com.example.employmentseekershubremastered.MainActivity
+import com.example.employmentseekershubremastered.SessionManager
 import com.example.employmentseekershubremastered.databinding.FragmentRegistrationBinding
+import com.example.employmentseekershubremastered.model.dto.entry.point.UserRegistrationRequest
+import com.example.employmentseekershubremastered.model.dto.entry.point.UserTokenResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.Exception
 import java.util.regex.Pattern
 
 private const val ARG_PARAM1 = "param1"
@@ -19,7 +29,9 @@ class RegistrationFragment : Fragment() {
     private var param2: String? = null
 
     private var binding: FragmentRegistrationBinding? = null
-    private lateinit var viewModel: AuthAndRegViewModel
+    private lateinit var viewModel: EntryPointViewModel
+    private lateinit var selectedRole: String
+    private val sessionManager: SessionManager = SessionManager(requireContext())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +47,7 @@ class RegistrationFragment : Fragment() {
     ): View? {
         binding = FragmentRegistrationBinding.inflate(inflater)
         // Инициализация ViewModel через контекст фрагмента.
-        viewModel = ViewModelProvider(requireActivity()).get(AuthAndRegViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(EntryPointViewModel::class.java)
         // Заполнение полей, если в ViewModel есть какие-то данные
         restoreRegDataWithViewModel()
         // Конечная отрисовка для фрагмента
@@ -47,10 +59,10 @@ class RegistrationFragment : Fragment() {
 
         // Обрабатываем 2 радиокнопки с ролями.
         binding?.radioGroupRegistration?.setOnCheckedChangeListener { registrationRadioGroup, id ->
-            val selectedRole: String? = when (id) {
+            selectedRole = when (id) {
                 binding?.radioBtnPartOfATeam?.id -> "APPLICANT"
                 binding?.radioBtnSoloCreator?.id -> "COMPANY_OWNER"
-                else -> null
+                else -> "NOTHING"
             }
             viewModel.selectedRoleIdRegistration = id
         }
@@ -71,7 +83,9 @@ class RegistrationFragment : Fragment() {
 
         // Сделать обработчик нажатия на кнопку "Sign Up!", то есть регистрации.
         binding?.btnConfirmRegistration?.setOnClickListener {
-
+            try { regNewUser() }
+            catch (e: Exception) { Log.i("Request error", e.message.toString())}
+            finally { Toast.makeText(requireContext(), "Button has been clicked!", Toast.LENGTH_SHORT).show() }
         }
     }
 
@@ -83,8 +97,82 @@ class RegistrationFragment : Fragment() {
     }
 
 
-    private fun registerNewUser() {
+    /** Метод, который регистрирует нового пользователя. Он проверяет валидность всех 4 полей.
+     * Если все корректно, далее запускается метод regRequest(), который отправляет запрос на
+     * регистрацию на сервер.*/
+    private fun regNewUser() {
+        // Проверяем, корректно введено поле "Email"
+        if (!isValidEmail(binding?.etEmailUserRegistration.toString().trim())) {
+            binding?.etEmailUserRegistration?.error = "Invalid email format!"
+            Toast.makeText(requireContext(), "Try enter normal email :)", Toast.LENGTH_SHORT).show()
+        }
+        // Проверяем, корректно ли заполнено поле "Password"
+        else if (!isValidPassword(binding?.etPasswordUserRegistration.toString().trim())) {
+            binding?.etPasswordUserRegistration?.error = "Invalid password format!"
+            Toast.makeText(requireContext(), "@string/warning_correct_password_format", Toast.LENGTH_LONG).show()
+        }
+        // Проверяем, не пусто ли поле "First name"
+        else if (binding?.etFirstNameUserRegistration?.toString()?.trim()!!.isEmpty()) {
+            binding?.etFirstNameUserRegistration?.error = "Field 'Your first name' can't be empty"
+        }
+        // Проверяем, не пусто ли поле "Last name"
+        else if (binding?.etLastNameUserRegistration?.toString()?.trim()!!.isEmpty()) {
+            binding?.etLastNameUserRegistration?.error = "Field 'Your last name' can't be empty"
+        }
+        // Запустили метод, который отправляет запрос на регистрацию
 
+        else {
+            regRequest()
+        }
+    }
+
+
+    /** Метод, который собирает объект класса <UserRegistrationRequest>, а потом отправляет запрос
+     * на сервер с помощью объекта класса ApiClient().
+     * Также обрабатываются три исхода: успешный ответ, неуспешный ответ и ошибка со стороны сервера.
+     * * При успешном ответе два токена из response.body() сохраняются в локальную БД. */
+    private fun regRequest() {
+
+        val registrationInfo: UserRegistrationRequest = UserRegistrationRequest(
+            firstName = binding?.etFirstNameUserRegistration?.text.toString().trim(),
+            lastName = binding?.etLastNameUserRegistration?.text.toString().trim(),
+            email = binding?.etEmailUserRegistration?.text.toString().trim(),
+            password = binding?.etPasswordUserRegistration?.text.toString().trim(),
+            userRole = selectedRole
+        )
+
+        viewModel.apiClient.getAuthService().performRegistration(registrationInfo).enqueue(object : Callback<UserTokenResponse> {
+            override fun onResponse(call: Call<UserTokenResponse>, response: Response<UserTokenResponse>) {
+                if (response.isSuccessful) {
+                    sessionManager.saveAccessToken(response.body()?.accessToken)
+                    sessionManager.saveRefreshToken(response.body()?.refreshToken)
+                    Toast.makeText(requireContext(), "User has been registrated!", Toast.LENGTH_LONG).show()
+
+                    // Удаляем текущий фрагмент регистрации и возвращаемся к фрагменту авторизации
+                    parentFragmentManager.popBackStack()
+                }
+                else {
+                    when (response.code()) {
+                        400 -> {
+                            Log.e("Error 400", response.errorBody()?.string().toString())
+                            Toast.makeText(requireContext(), "Error 400", Toast.LENGTH_SHORT).show()
+                        }
+
+                        else -> {
+                            Log.e("Error 500", response.message())
+                            Toast.makeText(requireContext(), "Error 500", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
+                Log.i("Status:", "OnResponse's fail")
+                Log.i("Error:", t.message.toString())
+                Toast.makeText(requireContext(), "Some error occurred with the server", Toast.LENGTH_LONG).show()
+            }
+
+        })
     }
 
 
@@ -94,9 +182,9 @@ class RegistrationFragment : Fragment() {
     }
 
 
-    /** Метод, который проверяет минимальные требования введенного пароля. Это минимум 1 цифра,
-     * 1 маленкая буква, 1 большяа буква, 1 специальный символ, а также пароль должен содержать
-     * минимум 8 символов.
+    /** Метод, который проверяет минимальные требования введенного пароля.
+     * Это минимум 1 цифра, 1 маленкая буква, 1 большяа буква, 1 специальный символ, а также
+     * пароль должен содержать минимум 8 символов.
     */
     private fun isValidPassword(password: String): Boolean {
         val passwordPattern = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"

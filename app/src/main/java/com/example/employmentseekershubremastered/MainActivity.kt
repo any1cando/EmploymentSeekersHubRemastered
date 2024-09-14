@@ -12,12 +12,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var bindingWithBottomNavigation: ActivityMainWithBottomNavigationBinding
-    private lateinit var viewModelAuthAndReg: AuthAndRegViewModel
+    private lateinit var viewModelAuthAndReg: EntryPointViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModelAuthAndReg = ViewModelProvider(this).get(AuthAndRegViewModel::class.java)
+        viewModelAuthAndReg = ViewModelProvider(this).get(EntryPointViewModel::class.java)
         // Инфлейтим binding для макета с реализацией фрагментов через FragmentManager/FragmentTransaction
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
