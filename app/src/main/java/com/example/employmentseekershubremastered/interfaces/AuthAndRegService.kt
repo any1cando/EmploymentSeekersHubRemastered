@@ -11,8 +11,9 @@ import retrofit2.http.POST
 
 interface AuthAndRegService {
 
+    // Метод для выполнения запроса на авторизацию на сервер
     @POST("v1/auth/login")  // Строка для ввода адреса
-    fun performLogin(@Body loginInfo: UserAuthorizationRequest): Call<UserTokenResponse>  // Метод для выполнения запроса на сервер (передача логин/пароль)
+    fun performAuthorization(@Body authorizationInfo: UserAuthorizationRequest): Call<UserTokenResponse>
 
     @POST("v1/auth/registration")  // Строка для ввода регистрации
     fun performRegistration(@Body registrationInfo: UserRegistrationRequest): Call<UserTokenResponse>

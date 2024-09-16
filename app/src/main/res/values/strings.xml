@@ -2,4 +2,5 @@
     <string name="app_name">EmploymentSeekersHubRemastered</string>
     <string name="search_const">Start here…</string>
     <string name="warning_correct_password_format">Password must contain at least 1 little, 1 big, 1 number and special symbol</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

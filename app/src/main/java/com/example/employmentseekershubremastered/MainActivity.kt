@@ -4,15 +4,20 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.employmentseekershubremastered.databinding.ActivityMainBinding
 import com.example.employmentseekershubremastered.databinding.ActivityMainWithBottomNavigationBinding
 import com.example.employmentseekershubremastered.fragments.entry.point.AuthorizationFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var bindingWithBottomNavigation: ActivityMainWithBottomNavigationBinding
     private lateinit var viewModelAuthAndReg: EntryPointViewModel
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
 
     // Метод, с помощью которого можно переходить между фрагментами
-    // По умол
     fun navigateToFragment(fragment: Fragment, addToBackStack: Boolean = false) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -44,5 +48,17 @@ class MainActivity : AppCompatActivity() {
         // Проверяем true/false - и от этого решаем, будет ли транзакция сохранена в стек
         if (addToBackStack) fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
+    }
+
+
+    /** Метод, с помощью которого мы переходим в главный раздел (фрагменты, связанные с вакансиями) */
+    fun switchToMainInflaterWithNavController() {
+
+        // Меняем на макет с отображением фрагментов по навигации снизу
+        setContentView(bindingWithBottomNavigation.root)
+
+        // Настраиваем navController и BottomNavigationView
+        navController = findNavController(bindingWithBottomNavigation.navHostFragmentContainer.id)
+        bindingWithBottomNavigation.viewBottomNavigation.setupWithNavController(navController)
     }
 }

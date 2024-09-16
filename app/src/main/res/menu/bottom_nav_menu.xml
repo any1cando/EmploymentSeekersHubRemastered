@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/vacanciesFragment"
+        android:icon="@drawable/ic_vector_search_button"
+        android:title="Vacancies">
+    </item>
+
+    <item
+        android:id="@+id/secondFragment"
+        android:icon="@drawable/ic_vector_search_button"
+        android:title="Second">
+    </item>
+
+    <item
+        android:id="@+id/thirdFragment"
+        android:icon="@drawable/ic_vector_search_button"
+        android:title="Third">
+    </item>
+
+    <item
+        android:id="@+id/fourthFragment"
+        android:icon="@drawable/ic_vector_search_button"
+        android:title="Fourth">
+    </item>
+
+</menu>

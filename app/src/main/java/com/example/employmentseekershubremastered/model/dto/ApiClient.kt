@@ -5,21 +5,23 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiClient() {
-    private lateinit var authService: AuthAndRegService
+    private lateinit var authAndRegService: AuthAndRegService
     // Комментарии убрать, когда перейду к отображению вакансий.
 //    private lateinit var vacancyService: VacancyService
 
-    fun getAuthService(): AuthAndRegService {
+    fun getAuthAndRegService(): AuthAndRegService {
 
-        if (!::authService.isInitialized) {
+        // TODO Посмотреть, что за ::
+
+        if (!::authAndRegService.isInitialized) {
             val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.1.64:8081/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-            authService = retrofit.create(AuthAndRegService::class.java)
+            authAndRegService = retrofit.create(AuthAndRegService::class.java)
         }
 
-        return authService
+        return authAndRegService
     }
 
 //    fun getVacancyService(): VacancyService {

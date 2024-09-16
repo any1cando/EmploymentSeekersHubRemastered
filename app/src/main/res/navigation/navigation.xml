@@ -2,11 +2,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation">
-
+    android:id="@+id/navigation"
+    app:startDestination="@id/vacanciesFragment">
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.example.employmentseekershubremastered.fragments.main.DashboardFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/vacanciesFragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.VacanciesFragment"
+        android:label="fragment_vacancies"
+        tools:layout="@layout/fragment_vacancies" />
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.SecondFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_second" />
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third" />
+    <fragment
+        android:id="@+id/fourthFragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.FourthFragment"
+        android:label="fragment_fourth"
+        tools:layout="@layout/fragment_fourth" />
 </navigation>

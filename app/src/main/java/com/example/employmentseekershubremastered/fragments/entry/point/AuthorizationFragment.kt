@@ -1,16 +1,25 @@
 package com.example.employmentseekershubremastered.fragments.entry.point
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.example.employmentseekershubremastered.EntryPointViewModel
 import com.example.employmentseekershubremastered.MainActivity
 import com.example.employmentseekershubremastered.SessionManager
 import com.example.employmentseekershubremastered.databinding.FragmentAuthorizationBinding
+import com.example.employmentseekershubremastered.fragments.main.VacanciesFragment
+import com.example.employmentseekershubremastered.model.dto.entry.point.UserAuthorizationRequest
+import com.example.employmentseekershubremastered.model.dto.entry.point.UserTokenResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +33,14 @@ class AuthorizationFragment : Fragment() {
 
     private var binding: FragmentAuthorizationBinding? = null
     private lateinit var viewModel: EntryPointViewModel
-    private val sessionManager: SessionManager = SessionManager(requireContext())
+    private lateinit var sessionManager: SessionManager
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        sessionManager = SessionManager(requireContext())
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +50,7 @@ class AuthorizationFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         binding = FragmentAuthorizationBinding.inflate(inflater)
         viewModel = ViewModelProvider(requireActivity()).get(EntryPointViewModel::class.java)
         restoreAuthDataWithViewModel()
@@ -61,14 +74,10 @@ class AuthorizationFragment : Fragment() {
             viewModel.passwordAuthorization = textPassword.toString()
         }
 
-        // Делаю обработчик нажатич на кнопку "Log in", то есть авторизации.
-//        binding.btnAuthorization.setOnClickListener {
-//            try {
-//
-//            } catch (e: Exception) {
-//
-//            }
-//        }
+        // Делаю обработчик нажатия на кнопку "Log in", то есть авторизации.
+        binding?.btnAuthorization?.setOnClickListener {
+            authRequest()
+        }
     }
 
 
@@ -84,6 +93,55 @@ class AuthorizationFragment : Fragment() {
         binding?.etLogin?.setText(viewModel.emailAuthorization)
         binding?.etPassword?.setText(viewModel.passwordRegistration)
     }
+
+
+    private fun authRequest() {
+        val authorizationInfo: UserAuthorizationRequest = UserAuthorizationRequest(
+            email = viewModel.emailAuthorization.toString().trim(),
+            password = viewModel.passwordAuthorization.toString().trim()
+        )
+
+        viewModel.apiClient.getAuthAndRegService().performAuthorization(authorizationInfo).enqueue(object : Callback<UserTokenResponse> {
+            override fun onResponse(call: Call<UserTokenResponse>, response: Response<UserTokenResponse>) {
+                if (response.isSuccessful) {
+                    sessionManager.saveAccessToken(response.body()?.accessToken)
+                    sessionManager.saveRefreshToken(response.body()?.refreshToken)
+
+                    // Очищаем поля VIewModel для авторизации после успешного запроса авторизации
+                    deleteAuthAndRegDataWithViewModel()
+
+                    // Переходим на главный раздел с навигацией
+                    parentFragmentManager.popBackStack()
+                    (activity as MainActivity).switchToMainInflaterWithNavController()
+                }
+                else {
+                    when (response.code()) {
+                        400 -> { Toast.makeText(requireContext(), "Error 400", Toast.LENGTH_SHORT).show() }
+                        else -> { Toast.makeText(requireContext(), "Error 500", Toast.LENGTH_SHORT).show() }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
+                Log.i("Status:", "OnResponse's fail")
+                Log.i("Error:", t.message.toString())
+                Toast.makeText(requireContext(), "Some error occurred with the server", Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
+
+    private fun deleteAuthAndRegDataWithViewModel() {
+        viewModel.firstNameRegistration = null
+        viewModel.lastNameRegistration = null
+        viewModel.emailRegistration = null
+        viewModel.passwordRegistration = null
+        viewModel.selectedRoleIdRegistration = null
+        viewModel.emailAuthorization = null
+        viewModel.passwordAuthorization = null
+    }
+
 
     companion object {
         @JvmStatic
