@@ -64,16 +64,6 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Обрабатываем 2 радиокнопки с ролями.
-        binding?.radioGroupRegistration?.setOnCheckedChangeListener { registrationRadioGroup, id ->
-            selectedRole = when (id) {
-                binding?.radioBtnPartOfATeam?.id -> "APPLICANT"
-                binding?.radioBtnSoloCreator?.id -> "COMPANY_OWNER"
-                else -> "NOTHING"
-            }
-            viewModel.selectedRoleIdRegistration = id
-        }
-
         // Обрабатываем изменения в полях регистрации и добавляем их в ViewModel.
         binding?.etFirstNameUserRegistration?.doOnTextChanged { textFirstName, _, _, _ ->
             viewModel.firstNameRegistration = textFirstName.toString()
@@ -126,9 +116,6 @@ class RegistrationFragment : Fragment() {
         else if (binding?.etLastNameUserRegistration?.toString()?.trim()!!.isEmpty()) {
             binding?.etLastNameUserRegistration?.error = "Field 'Your last name' can't be empty"
         }
-        else if (viewModel.selectedRoleIdRegistration == null) {
-                Toast.makeText(requireContext(), "Select any role", Toast.LENGTH_LONG).show()
-        }
         // Запустили метод, который отправляет запрос на регистрацию
         else { regRequest() }
     }
@@ -144,8 +131,7 @@ class RegistrationFragment : Fragment() {
             firstName = binding?.etFirstNameUserRegistration?.text.toString().trim(),
             lastName = binding?.etLastNameUserRegistration?.text.toString().trim(),
             email = binding?.etEmailUserRegistration?.text.toString().trim(),
-            password = binding?.etPasswordUserRegistration?.text.toString().trim(),
-            userRole = selectedRole
+            password = binding?.etPasswordUserRegistration?.text.toString().trim()
         )
 
         viewModel.apiClient.getAuthAndRegService().performRegistration(registrationInfo).enqueue(object : Callback<UserTokenResponse> {
@@ -202,10 +188,6 @@ class RegistrationFragment : Fragment() {
         binding?.etLastNameUserRegistration?.setText(viewModel.lastNameRegistration)
         binding?.etEmailUserRegistration?.setText(viewModel.emailRegistration)
         binding?.etPasswordUserRegistration?.setText(viewModel.passwordRegistration)
-
-        if (viewModel.selectedRoleIdRegistration != null) {
-            binding?.radioGroupRegistration?.check(viewModel.selectedRoleIdRegistration!!)
-        }
     }
 
 
@@ -214,7 +196,6 @@ class RegistrationFragment : Fragment() {
         viewModel.lastNameRegistration = null
         viewModel.emailRegistration = null
         viewModel.passwordRegistration = null
-        viewModel.selectedRoleIdRegistration = null
     }
 
 

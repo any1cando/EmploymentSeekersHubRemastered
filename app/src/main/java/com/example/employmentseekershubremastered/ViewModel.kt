@@ -7,7 +7,7 @@ class ViewModel: ViewModel() {
     var lastNameRegistration: String? = null
     var emailRegistration: String? = null
     var passwordRegistration: String? = null
-    var selectedRoleIdRegistration: Int? = null  // TODO: Удалить это поле из регистрации
+
     var emailAuthorization: String? = null
     var passwordAuthorization: String? = null
     val apiClient: ApiClient = ApiClient()  // ??

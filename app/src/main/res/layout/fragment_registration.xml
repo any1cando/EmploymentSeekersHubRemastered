@@ -39,6 +39,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvStartHelloUserRegistration"
             app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
             app:layout_constraintEnd_toEndOf="@id/tvStartHelloUserRegistration"
+            app:layout_constraintBottom_toTopOf="@id/etLastNameUserRegistration"
             android:autofillHints="name" />
 
 
@@ -55,6 +56,7 @@
             app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
             app:layout_constraintEnd_toEndOf="@id/tvStartHelloUserRegistration"
             app:layout_constraintTop_toBottomOf="@id/etFirstNameUserRegistration"
+            app:layout_constraintBottom_toTopOf="@id/etEmailUserRegistration"
             android:autofillHints="name" />
 
 
@@ -71,6 +73,7 @@
             app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
             app:layout_constraintEnd_toEndOf="@id/tvStartHelloUserRegistration"
             app:layout_constraintTop_toBottomOf="@id/etLastNameUserRegistration"
+            app:layout_constraintBottom_toTopOf="@id/etPasswordUserRegistration"
             tools:ignore="TextFields" />
 
 
@@ -87,34 +90,8 @@
             app:layout_constraintStart_toStartOf="@id/tvStartHelloUserRegistration"
             app:layout_constraintEnd_toEndOf="@id/tvStartHelloUserRegistration"
             app:layout_constraintTop_toBottomOf="@id/etEmailUserRegistration"
+            app:layout_constraintBottom_toTopOf="@id/btnConfirmRegistration"
             tools:ignore="TextFields" />
-
-
-        <RadioGroup
-            android:id="@+id/radioGroupRegistration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/etPasswordUserRegistration"
-            app:layout_constraintBottom_toTopOf="@id/btnConfirmRegistration">
-
-            <RadioButton
-                android:id="@+id/radioBtnPartOfATeam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Part of a team" />
-
-            <RadioButton
-                android:id="@+id/radioBtnSoloCreator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Solo Creator" />
-        </RadioGroup>
 
 
         <Button
@@ -123,6 +100,7 @@
             android:layout_marginTop="70dp"
             android:layout_marginBottom="70dp"
             android:text="Sign up!"
+            app:layout_constraintTop_toBottomOf="@id/etPasswordUserRegistration"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

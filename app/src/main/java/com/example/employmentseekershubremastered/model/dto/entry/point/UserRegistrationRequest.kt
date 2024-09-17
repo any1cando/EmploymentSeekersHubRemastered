@@ -5,5 +5,4 @@ data class UserRegistrationRequest(
     val lastName: String,
     val email: String,
     val password: String,
-    val userRole: String
 )
