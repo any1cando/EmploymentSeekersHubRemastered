@@ -11,6 +11,7 @@ class ApiClient() {
     private lateinit var authAndRegService: AuthAndRegService
     private lateinit var vacancyService: VacancyService
 
+    /** Метод, чтобы получить настроенный объект, реализующий интерфейс 'AuthAndRegService' */
     fun getAuthAndRegService(): AuthAndRegService {
 
         // TODO Посмотреть, что за ::
@@ -26,6 +27,7 @@ class ApiClient() {
         return authAndRegService
     }
 
+    /** Методы, чтобы получить настроенный объект, реализующий интерфейс 'VacancyService' */
     fun getVacancyService(): VacancyService {
         if (!::vacancyService.isInitialized) {
 //            val gson = GsonBuilder()

@@ -20,13 +20,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class AuthorizationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -80,7 +78,6 @@ class AuthorizationFragment : Fragment() {
     }
 
 
-    /** Вызываем метод "onDestroyView()" для того, чтобы очистить binding и избежать утечек памяти.  */
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
@@ -94,6 +91,7 @@ class AuthorizationFragment : Fragment() {
     }
 
 
+    /** Метод, который отправляет запрос на авторизацию */
     private fun authRequest() {
         val authorizationInfo: UserAuthorizationRequest = UserAuthorizationRequest(
             email = viewModel.emailAuthorization.toString().trim(),
@@ -132,6 +130,7 @@ class AuthorizationFragment : Fragment() {
     }
 
 
+    /** Метод, который уничтожает все данные в ViewModel */
     private fun deleteAuthAndRegDataWithViewModel() {
         viewModel.firstNameRegistration = null
         viewModel.lastNameRegistration = null

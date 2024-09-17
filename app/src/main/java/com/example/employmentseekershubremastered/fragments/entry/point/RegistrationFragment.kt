@@ -191,6 +191,7 @@ class RegistrationFragment : Fragment() {
     }
 
 
+    /** Метод, который уничтожает все данные регистрации в ViewModel */
     private fun deleteRegDataWithViewModel() {
         viewModel.firstNameRegistration = null
         viewModel.lastNameRegistration = null
@@ -208,7 +209,6 @@ class RegistrationFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment RegistrationFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             RegistrationFragment().apply {

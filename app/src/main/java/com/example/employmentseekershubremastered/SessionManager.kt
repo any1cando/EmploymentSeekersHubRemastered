@@ -11,7 +11,7 @@ class SessionManager (context: Context) {
         const val REFRESH_TOKEN = "refresh_token"
     }
 
-    //Методы, чтобы сохранять токены
+    /** Методы, чтобы сохранять токены */
     fun saveAccessToken(accessToken: String?) {
         val editor = prefs.edit()
         editor.putString(ACCESS_TOKEN, accessToken)
@@ -25,7 +25,7 @@ class SessionManager (context: Context) {
 
     }
 
-    // Методы, чтобы доставать токены
+    /** Методы, чтобы доставать токены */
     fun fetchAccessToken(): String? {
         return prefs.getString(ACCESS_TOKEN, null)
     }

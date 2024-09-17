@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // Метод, с помощью которого можно переходить между фрагментами
+    /** Метод, с помощью которого можно переходить между фрагментами */
     fun navigateToFragment(fragment: Fragment, addToBackStack: Boolean = false) {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.authorizationAndRegistrationFragmentContainer, fragment)

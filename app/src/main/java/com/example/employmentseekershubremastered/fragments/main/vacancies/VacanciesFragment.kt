@@ -68,6 +68,7 @@ class VacanciesFragment : Fragment() {
     }
 
 
+    /** Метод, который делает настройку адаптера по умолчанию (кликер, layoutManager, adapter) */
     private fun setupDefaultAdapterSettings() {
         vacancyAdapter.setOnItemClickListener { vacancy -> clickOnVacancy(vacancy) }
         with(binding?.rvVacancies) {
@@ -77,6 +78,7 @@ class VacanciesFragment : Fragment() {
     }
 
 
+    /** Метод, который отправляет запрос на получение списка вакансий */
     private fun getVacancies() {
         viewModel.apiClient.getVacancyService().getVacancies().enqueue(object : Callback<List<VacancyDto>> {
             override fun onResponse(call: Call<List<VacancyDto>>, response: Response<List<VacancyDto>>) {
@@ -96,6 +98,7 @@ class VacanciesFragment : Fragment() {
     }
 
 
+    /** Метод, который описывает поведение клика на вакансию */
     private fun clickOnVacancy(vacancy: VacancyDto) {
         /** VacanciesFragmentDirections - автоматически генирируемый класс, который создается после подключения 'SafeArgs'.
         Вызываем метод 'action...', который я указал в навигации, и передаем туда 'vacancy',

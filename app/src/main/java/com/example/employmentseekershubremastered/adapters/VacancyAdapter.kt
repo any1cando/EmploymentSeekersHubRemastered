@@ -56,11 +56,13 @@ class VacancyAdapter (): RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>(
 
     override fun getItemCount(): Int = vacancies.size
 
+    /** Метод, который обновляет данные для отрисовки в адаптере */
     fun update(data: List<VacancyDto>) {
         vacancies = data
         notifyDataSetChanged()
     }
 
+    /** Метод, который устанавливает кликер для вакансии, логику которого мы передаем как функцию в настройке адаптера в VacanciesFragment */
     fun setOnItemClickListener(listener: (VacancyDto) -> Unit) {
         onItemClick = listener
     }
