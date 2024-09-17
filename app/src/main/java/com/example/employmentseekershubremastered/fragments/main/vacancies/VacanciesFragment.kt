@@ -1,4 +1,4 @@
-package com.example.employmentseekershubremastered.fragments.main
+package com.example.employmentseekershubremastered.fragments.main.vacancies
 
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.employmentseekershubremastered.R
 import com.example.employmentseekershubremastered.ViewModel
 import com.example.employmentseekershubremastered.adapters.VacancyAdapter
 import com.example.employmentseekershubremastered.databinding.FragmentVacanciesBinding
-import com.example.employmentseekershubremastered.model.dto.main.SalaryDto
 import com.example.employmentseekershubremastered.model.dto.main.VacancyDto
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +47,7 @@ class VacanciesFragment : Fragment() {
         binding = FragmentVacanciesBinding.inflate(inflater)
         viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
 
-        // Настраиваем поля RecyclerView: layoutManager, adapter
+        // Настраиваем поля RecyclerView: layoutManager, adapter, а также обработчик нажатия на вакансию
         setupDefaultAdapterSettings()
 
         // Inflate the layout for this fragment
@@ -62,13 +61,6 @@ class VacanciesFragment : Fragment() {
         getVacancies()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        // TODO: Сделать обработчик нажатия на вакансию -> открытие новой вакансии с более подробной информацией и (!) кнопкой отклика
-
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -77,6 +69,7 @@ class VacanciesFragment : Fragment() {
 
 
     private fun setupDefaultAdapterSettings() {
+        vacancyAdapter.setOnItemClickListener { vacancy -> clickOnVacancy(vacancy) }
         with(binding?.rvVacancies) {
             this?.layoutManager = LinearLayoutManager(requireContext())
             this?.adapter = vacancyAdapter
@@ -103,8 +96,12 @@ class VacanciesFragment : Fragment() {
     }
 
 
-    private fun clickOnVacancy() {
-
+    private fun clickOnVacancy(vacancy: VacancyDto) {
+        /** VacanciesFragmentDirections - автоматически генирируемый класс, который создается после подключения 'SafeArgs'.
+        Вызываем метод 'action...', который я указал в навигации, и передаем туда 'vacancy',
+        так как в навигации мы указали, что должен прийти аргумент формата VacancyDto */
+        val action = VacanciesFragmentDirections.actionVacanciesFragmentToDetailedVacancyFragment(vacancy)
+        findNavController().navigate(action)
     }
 
 

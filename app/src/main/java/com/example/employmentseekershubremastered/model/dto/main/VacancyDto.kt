@@ -1,5 +1,9 @@
 package com.example.employmentseekershubremastered.model.dto.main
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class VacancyDto(
     val id: String,
     val vacancyTitle: String, // Название вакансии
@@ -11,5 +15,5 @@ data class VacancyDto(
     val salary: SalaryDto,  // Зарплата
     val postedTime: String,  // Дата публикации вакансии
     var isLiked: Boolean,  // Стоит лайк или нет (пока в бете)
-)
+) : Parcelable
 

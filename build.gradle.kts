@@ -3,3 +3,12 @@ plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
 }
+
+buildscript {
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.8.0")
+    }
+}

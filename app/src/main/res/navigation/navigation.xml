@@ -3,20 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/vacanciesFragment">
+    app:startDestination="@id/vacancies_fragment">
     <fragment
-        android:id="@+id/vacanciesFragment"
-        android:name="com.example.employmentseekershubremastered.fragments.main.VacanciesFragment"
+        android:id="@+id/vacancies_fragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.vacancies.VacanciesFragment"
         android:label="fragment_vacancies"
-        tools:layout="@layout/fragment_vacancies" />
+        tools:layout="@layout/fragment_vacancies">
+        <action
+            android:id="@+id/action_vacancies_fragment_to_detailed_vacancy_fragment"
+            app:destination="@id/detailed_vacancy_fragment" />
+    </fragment>
+
     <fragment
-        android:id="@+id/secondFragment"
+        android:id="@+id/personal_account_fragment"
         android:name="com.example.employmentseekershubremastered.fragments.main.PersonalAccountFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_personal_account" />
+
     <fragment
-        android:id="@+id/thirdFragment"
+        android:id="@+id/my_questionnaires_fragment"
         android:name="com.example.employmentseekershubremastered.fragments.main.MyQuestionnairesFragment"
         android:label="fragment_third"
         tools:layout="@layout/fragment_my_questionnaires" />
+
+    <fragment
+        android:id="@+id/detailed_vacancy_fragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.vacancies.DetailedVacancyFragment"
+        android:label="fragment_detailed_vacancy"
+        tools:layout="@layout/fragment_detailed_vacancy">
+        <argument
+            android:name="vacancy"
+            app:argType="com.example.employmentseekershubremastered.model.dto.main.VacancyDto"/>
+    </fragment>
+
 </navigation>

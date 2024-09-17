@@ -137,7 +137,6 @@ class AuthorizationFragment : Fragment() {
         viewModel.lastNameRegistration = null
         viewModel.emailRegistration = null
         viewModel.passwordRegistration = null
-        viewModel.selectedRoleIdRegistration = null
         viewModel.emailAuthorization = null
         viewModel.passwordAuthorization = null
     }

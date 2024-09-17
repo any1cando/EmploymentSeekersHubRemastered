@@ -9,8 +9,9 @@ import com.example.employmentseekershubremastered.R
 import com.example.employmentseekershubremastered.databinding.ItemRvVacancyBinding
 import com.example.employmentseekershubremastered.model.dto.main.VacancyDto
 
-class VacancyAdapter: RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
+class VacancyAdapter (): RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
     private var vacancies: List<VacancyDto> = emptyList()
+    private var onItemClick: ((VacancyDto) -> Unit)? = null
     inner class VacancyViewHolder(binding: ItemRvVacancyBinding): RecyclerView.ViewHolder(binding.root) {
         val tvVacancyTitle = binding.tvVacancyTitle
         val tvCompanyTitle = binding.tvCompanyTitle
@@ -19,6 +20,19 @@ class VacancyAdapter: RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
         val tvDescription = binding.tvDescription
         val tvSalary = binding.tvSalary
         val tvPostedTime = binding.tvPostedTime
+
+        /** Вызываем блок инициализации при создании нашего ViewHolder, в котором делаем установку клика на корневой элемент */
+        init {
+            binding.root.setOnClickListener {
+                /** Узнаем текущую позицию элемента. Это значение обновляется динамически, так как есть подгрузка элементов. */
+                val vacancyPosition = adapterPosition
+                /** Проверка позиции элемента на валидность: не была ли она удалена + существовала ли она */
+                if (vacancyPosition != RecyclerView.NO_POSITION)
+                    /** Вызываем переданный обработчик клика и передаем в него нашу выбранную вакансию */
+                    onItemClick?.invoke(vacancies[vacancyPosition])
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
@@ -45,5 +59,9 @@ class VacancyAdapter: RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
     fun update(data: List<VacancyDto>) {
         vacancies = data
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(listener: (VacancyDto) -> Unit) {
+        onItemClick = listener
     }
 }
