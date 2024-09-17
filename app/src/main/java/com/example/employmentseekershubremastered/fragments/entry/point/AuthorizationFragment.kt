@@ -10,11 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
-import com.example.employmentseekershubremastered.EntryPointViewModel
+import com.example.employmentseekershubremastered.ViewModel
 import com.example.employmentseekershubremastered.MainActivity
 import com.example.employmentseekershubremastered.SessionManager
 import com.example.employmentseekershubremastered.databinding.FragmentAuthorizationBinding
-import com.example.employmentseekershubremastered.fragments.main.VacanciesFragment
 import com.example.employmentseekershubremastered.model.dto.entry.point.UserAuthorizationRequest
 import com.example.employmentseekershubremastered.model.dto.entry.point.UserTokenResponse
 import retrofit2.Call
@@ -32,7 +31,7 @@ class AuthorizationFragment : Fragment() {
     private var param2: String? = null
 
     private var binding: FragmentAuthorizationBinding? = null
-    private lateinit var viewModel: EntryPointViewModel
+    private lateinit var viewModel: ViewModel
     private lateinit var sessionManager: SessionManager
 
 
@@ -52,7 +51,7 @@ class AuthorizationFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         binding = FragmentAuthorizationBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity()).get(EntryPointViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
         restoreAuthDataWithViewModel()
         // Inflate the layout for this fragment
         return binding?.root
@@ -104,6 +103,7 @@ class AuthorizationFragment : Fragment() {
         viewModel.apiClient.getAuthAndRegService().performAuthorization(authorizationInfo).enqueue(object : Callback<UserTokenResponse> {
             override fun onResponse(call: Call<UserTokenResponse>, response: Response<UserTokenResponse>) {
                 if (response.isSuccessful) {
+
                     sessionManager.saveAccessToken(response.body()?.accessToken)
                     sessionManager.saveRefreshToken(response.body()?.refreshToken)
 

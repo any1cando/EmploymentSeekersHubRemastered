@@ -6,27 +6,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.employmentseekershubremastered.databinding.ActivityMainBinding
 import com.example.employmentseekershubremastered.databinding.ActivityMainWithBottomNavigationBinding
-import com.example.employmentseekershubremastered.fragments.entry.point.AuthorizationFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var bindingWithBottomNavigation: ActivityMainWithBottomNavigationBinding
-    private lateinit var viewModelAuthAndReg: EntryPointViewModel
+    private lateinit var viewModel: ViewModel
     private lateinit var navController: NavController
     private val fragmentManager: FragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModelAuthAndReg = ViewModelProvider(this).get(EntryPointViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
         // Инфлейтим binding для макета с реализацией фрагментов через FragmentManager/FragmentTransaction
         binding = ActivityMainBinding.inflate(layoutInflater)

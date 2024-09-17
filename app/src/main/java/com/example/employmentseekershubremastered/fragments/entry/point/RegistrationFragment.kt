@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
-import com.example.employmentseekershubremastered.EntryPointViewModel
+import com.example.employmentseekershubremastered.ViewModel
 import com.example.employmentseekershubremastered.SessionManager
 import com.example.employmentseekershubremastered.databinding.FragmentRegistrationBinding
 import com.example.employmentseekershubremastered.model.dto.entry.point.UserRegistrationRequest
@@ -29,7 +29,7 @@ class RegistrationFragment : Fragment() {
     private var param2: String? = null
 
     private var binding: FragmentRegistrationBinding? = null
-    private lateinit var viewModel: EntryPointViewModel
+    private lateinit var viewModel: ViewModel
     private lateinit var selectedRole: String
     private lateinit var sessionManager: SessionManager
 
@@ -54,7 +54,7 @@ class RegistrationFragment : Fragment() {
     ): View? {
         binding = FragmentRegistrationBinding.inflate(inflater)
         // Инициализация ViewModel через контекст фрагмента.
-        viewModel = ViewModelProvider(requireActivity()).get(EntryPointViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
         // Заполнение полей, если в ViewModel есть какие-то данные
         restoreRegDataWithViewModel()
         // Конечная отрисовка для фрагмента

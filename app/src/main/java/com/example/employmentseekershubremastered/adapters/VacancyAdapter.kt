@@ -13,7 +13,6 @@ class VacancyAdapter: RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
     private var vacancies: List<VacancyDto> = emptyList()
     inner class VacancyViewHolder(binding: ItemRvVacancyBinding): RecyclerView.ViewHolder(binding.root) {
         val tvVacancyTitle = binding.tvVacancyTitle
-        val ibtnLike: ImageButton = binding.ibtnLike
         val tvCompanyTitle = binding.tvCompanyTitle
         val tvCountCandidates = binding.tvCountCandidates
         val llTags: LinearLayout = binding.llTags
@@ -34,13 +33,11 @@ class VacancyAdapter: RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>() {
 
         holder.tvVacancyTitle.text = vacancyData.vacancyTitle
         holder.tvCompanyTitle.text = vacancyData.companyTitle
-        holder.tvCountCandidates.text = vacancyData.countCandidates.toString()
+        holder.tvCountCandidates.text = "${vacancyData.countCandidates.toString()} applicants"
         holder.tvDescription.text = vacancyData.description
-        holder.tvSalary.text = vacancyData.salary.amount.toString()
-        holder.tvPostedTime.text = "Posted ${vacancyData.postedTime}"
+        holder.tvSalary.text = "${vacancyData.salary.amount}$ per month"
+        holder.tvPostedTime.text = vacancyData.postedTime
 
-        if (vacancyData.isLiked) holder.ibtnLike.setImageResource(R.drawable.ic_vector_empty_like_red)
-        else holder.ibtnLike.setImageResource(R.drawable.ic_vector_empty_like)
     }
 
     override fun getItemCount(): Int = vacancies.size

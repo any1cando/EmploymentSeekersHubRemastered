@@ -1,13 +1,15 @@
 package com.example.employmentseekershubremastered
 
 import com.example.employmentseekershubremastered.interfaces.AuthAndRegService
+import com.example.employmentseekershubremastered.interfaces.VacancyService
+import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiClient() {
+
     private lateinit var authAndRegService: AuthAndRegService
-    // Комментарии убрать, когда перейду к отображению вакансий.
-//    private lateinit var vacancyService: VacancyService
+    private lateinit var vacancyService: VacancyService
 
     fun getAuthAndRegService(): AuthAndRegService {
 
@@ -24,20 +26,20 @@ class ApiClient() {
         return authAndRegService
     }
 
-//    fun getVacancyService(): VacancyService {
-//        if (!::vacancyService.isInitialized) {
+    fun getVacancyService(): VacancyService {
+        if (!::vacancyService.isInitialized) {
 //            val gson = GsonBuilder()
 //                .registerTypeAdapter(FiltersDto::class.java, FilterDataDeserializer())
 //                .create()
-//
-//            val retrofit = Retrofit.Builder()
-//                .baseUrl("http://192.168.1.64:8081/api/")
-//                .addConverterFactory(GsonConverterFactory.create(gson))
-//                .build()
-//            vacancyService = retrofit.create(VacancyService::class.java)
-//        }
-//
-//        return vacancyService
-//    }
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://192.168.1.64:8081/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            vacancyService = retrofit.create(VacancyService::class.java)
+        }
+
+        return vacancyService
+    }
 
 }
