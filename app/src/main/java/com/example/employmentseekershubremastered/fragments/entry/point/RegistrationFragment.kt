@@ -108,14 +108,13 @@ class RegistrationFragment : Fragment() {
      * Если все корректно, далее запускается метод regRequest(), который отправляет запрос на
      * регистрацию на сервер.*/
     private fun regNewUser() {
-        // TODO: Сделать нормальную валидацию почты и пароля (!)
         // Проверяем, корректно введено поле "Email"
-        if (!isValidEmail(binding?.etEmailUserRegistration.toString().trim())) {
+        if (!isValidEmail(binding?.etEmailUserRegistration?.text.toString().trim())) {
             binding?.etEmailUserRegistration?.error = "Invalid email format!"
             Toast.makeText(requireContext(), "Try enter normal email :)", Toast.LENGTH_SHORT).show()
         }
          // Проверяем, корректно ли заполнено поле "Password"
-        else if (!isValidPassword(binding?.etPasswordUserRegistration.toString().trim())) {
+        else if (!isValidPassword(binding?.etPasswordUserRegistration?.text.toString().trim())) {
             binding?.etPasswordUserRegistration?.error = "Invalid password format!"
             Toast.makeText(requireContext(), "@string/warning_correct_password_format", Toast.LENGTH_LONG).show()
         }

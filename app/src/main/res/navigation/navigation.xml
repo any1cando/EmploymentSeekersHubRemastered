@@ -11,17 +11,12 @@
         tools:layout="@layout/fragment_vacancies" />
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.employmentseekershubremastered.fragments.main.SecondFragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.PersonalAccountFragment"
         android:label="fragment_second"
-        tools:layout="@layout/fragment_second" />
+        tools:layout="@layout/fragment_personal_account" />
     <fragment
         android:id="@+id/thirdFragment"
-        android:name="com.example.employmentseekershubremastered.fragments.main.ThirdFragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.MyQuestionnairesFragment"
         android:label="fragment_third"
-        tools:layout="@layout/fragment_third" />
-    <fragment
-        android:id="@+id/fourthFragment"
-        android:name="com.example.employmentseekershubremastered.fragments.main.FourthFragment"
-        android:label="fragment_fourth"
-        tools:layout="@layout/fragment_fourth" />
+        tools:layout="@layout/fragment_my_questionnaires" />
 </navigation>

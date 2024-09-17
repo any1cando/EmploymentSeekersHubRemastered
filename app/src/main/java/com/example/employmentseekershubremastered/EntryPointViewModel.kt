@@ -1,7 +1,6 @@
 package com.example.employmentseekershubremastered
 
 import androidx.lifecycle.ViewModel
-import com.example.employmentseekershubremastered.model.dto.ApiClient
 
 class EntryPointViewModel: ViewModel() {
     var firstNameRegistration: String? = null

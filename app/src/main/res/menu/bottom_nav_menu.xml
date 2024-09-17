@@ -3,26 +3,20 @@
 
     <item
         android:id="@+id/vacanciesFragment"
-        android:icon="@drawable/ic_vector_search_button"
+        android:icon="@drawable/ic_vector_bnv_recyclerview"
         android:title="Vacancies">
     </item>
 
     <item
         android:id="@+id/secondFragment"
-        android:icon="@drawable/ic_vector_search_button"
-        android:title="Second">
+        android:icon="@drawable/ic_vector_bnv_personal_account"
+        android:title="Profile">
     </item>
 
     <item
         android:id="@+id/thirdFragment"
-        android:icon="@drawable/ic_vector_search_button"
-        android:title="Third">
-    </item>
-
-    <item
-        android:id="@+id/fourthFragment"
-        android:icon="@drawable/ic_vector_search_button"
-        android:title="Fourth">
+        android:icon="@drawable/ic_vector_bnv_my_questionnaires"
+        android:title="Forms">
     </item>
 
 </menu>

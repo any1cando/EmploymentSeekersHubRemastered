@@ -32,7 +32,7 @@
     </style>
 
 
-    <style name="AuthTextViewStyle" parent="TextAppearance.AppCompat.Body1">
+    <style name="TextStyle" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/mainBlack</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
@@ -42,9 +42,21 @@
     <style name="CustomSearchViewStyleMain" parent="Widget.AppCompat.SearchView">
         <item name="queryBackground">@color/blueActive</item>
         <item name="backgroundColor">@color/mainWhite</item>
-        <item name="searchIcon">@drawable/ic_vector_search_button</item>
+        <item name="searchIcon">@drawable/ic_vector_search</item>
         <item name="queryHint">@string/search_const</item>
         <item name="android:textColor">@color/mainBlack</item>
         <item name="android:textColorHint">@color/gray</item>
     </style>
+    
+    
+    <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/BottomNavigationViewActiveText</item>
+        <item name="itemPaddingTop">5dp</item>
+        <item name="itemPaddingBottom">10dp</item>
+    </style>
+
+    <style name="BottomNavigationViewActiveText" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">16sp</item>
+    </style>
+    
 </resources>

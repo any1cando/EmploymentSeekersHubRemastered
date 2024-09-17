@@ -18,9 +18,14 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/viewBottomNavigation"
+        style="@style/BottomNavigationViewStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="?android:attr/windowBackground"
+        app:itemTextColor="@color/blueActive"
+        app:itemIconTint="@color/blueActive"
+        app:itemIconSize="28dp"
+        app:labelVisibilityMode="selected"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

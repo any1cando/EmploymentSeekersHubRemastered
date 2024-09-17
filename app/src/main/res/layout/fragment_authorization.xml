@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/mainWhite"
     tools:context=".fragments.entry.point.AuthorizationFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/tvStartHello"
-            style="@style/AuthTextViewStyle"
+            style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/tvYourEmail"
-            style="@style/AuthTextViewStyle"
+            style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
@@ -56,7 +56,7 @@
 
         <TextView
             android:id="@+id/tvYourPassword"
-            style="@style/AuthTextViewStyle"
+            style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
@@ -85,7 +85,7 @@
 
         <TextView
             android:id="@+id/tvHelpRegistration"
-            style="@style/AuthTextViewStyle"
+            style="@style/TextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginStart="10dp"
-            style="@style/AuthTextViewStyle"
+            style="@style/TextStyle"
             android:text="Sign up!"
             android:textColor="@color/selector_color_text_view_link"
             android:gravity="start"

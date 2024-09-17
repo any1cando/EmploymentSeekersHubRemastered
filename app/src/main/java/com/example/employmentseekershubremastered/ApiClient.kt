@@ -1,4 +1,4 @@
-package com.example.employmentseekershubremastered.model.dto
+package com.example.employmentseekershubremastered
 
 import com.example.employmentseekershubremastered.interfaces.AuthAndRegService
 import retrofit2.Retrofit
