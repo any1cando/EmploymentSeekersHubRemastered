@@ -63,6 +63,7 @@ class VacanciesFragment : Fragment() {
     }
 
 
+    // TODO: Сделать обработку нажатия на фильтры и кнопку применить
     override fun onResume() {
         super.onResume()
 

@@ -58,7 +58,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/filters_header"
-        app:menu="@menu/filters_menu"/>
+        app:headerLayout="@layout/filters_body" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
