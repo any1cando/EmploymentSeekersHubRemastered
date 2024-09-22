@@ -3,11 +3,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.main.vacancies.DetailedVacancyFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvVacancyTitleDetailed"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Android Developer" />
+
+        <TextView
+            android:id="@+id/tvCompanyTitleDetailed"
+            style="@style/TextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvVacancyTitleDetailed"
+            app:layout_constraintEnd_toStartOf="@id/tvPostedTimeDetailed"
+            tools:text="Open AI Company@Inc"/>
+
+        <TextView
+            android:id="@+id/tvPostedTimeDetailed"
+            style="@style/TextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/tvCompanyTitleDetailed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvVacancyTitleDetailed"
+            tools:text="Posted 22.09.2024"/>
+
+        <TextView
+            android:id="@+id/tvDescriptionDetailed"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+
+            android:text=""
+            app:layout_constraintTop_toBottomOf="@id/tvCompanyTitleDetailed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Description:"/>
+
+        <TextView
+            android:id="@+id/tvDescriptionTextDetailed"
+            android:layout_width="0dp"
+            style="@style/TextStyle"
+            android:textStyle="normal"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionDetailed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="This is company is a great company of 21th centuary. We made a lot if efforts to make Open AI realed. So we need good Android Developer to inprove our slots.">
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/llTagsDetailed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionTextDetailed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSalaryDetailed"
+            style="@style/TextStyle"
+            android:textStyle="normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+
+            app:layout_constraintTop_toBottomOf="@id/llTagsDetailed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvCountCandidatesDetailed"
+            tools:text="2500$ per month"/>
+
+        <TextView
+            android:id="@+id/tvCountCandidatesDetailed"
+            style="@style/TextStyle"
+            android:textStyle="normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+
+            app:layout_constraintTop_toBottomOf="@id/llTagsDetailed"
+            app:layout_constraintStart_toEndOf="@id/tvSalaryDetailed"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="729 Applicants"/>
+
+        <Button
+            android:id="@+id/btnRespond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+
+            android:text="Respond"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/tvSalaryDetailed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

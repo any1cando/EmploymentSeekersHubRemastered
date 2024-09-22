@@ -13,7 +13,7 @@ interface VacancyService {
 
 
     @GET("v1/vacancies/{vacancyId}")
-    fun getVacancyById(@Path("vacancyId") id: String, @Header("Authorization") token: String): Call<VacancyDto>
+    fun getVacancyById(@Path("vacancyId") id: String): Call<VacancyDto>
 
 
 //    @GET("v1/vacancies/filters")
