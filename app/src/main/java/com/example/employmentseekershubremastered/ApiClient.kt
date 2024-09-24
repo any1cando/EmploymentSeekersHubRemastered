@@ -1,5 +1,6 @@
 package com.example.employmentseekershubremastered
 
+import com.example.employmentseekershubremastered.adapters.SealedFilterAdapterFactory
 import com.example.employmentseekershubremastered.interfaces.AuthAndRegService
 import com.example.employmentseekershubremastered.interfaces.VacancyService
 import com.google.gson.GsonBuilder
@@ -14,7 +15,7 @@ class ApiClient() {
     private lateinit var vacancyService: VacancyService
     private val client = getClient()
 
-    // Настройка OkHttpClient3
+    /** Метод, чтобы получить "клиент" OkHttpClient, который нужен для отслеживания состояния запроса на сервер в Logcat */
     private fun getClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -28,11 +29,10 @@ class ApiClient() {
     /** Метод, чтобы получить настроенный объект, реализующий интерфейс 'AuthAndRegService' */
     fun getAuthAndRegService(): AuthAndRegService {
 
-        // TODO Посмотреть, что за ::
-
+        // :: - это оператор ссылки на член (member reference)
         if (!::authAndRegService.isInitialized) {
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.1.64:8081/api/")
+                .baseUrl("http://192.168.1.64:8081/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -45,14 +45,14 @@ class ApiClient() {
     /** Методы, чтобы получить настроенный объект, реализующий интерфейс 'VacancyService' */
     fun getVacancyService(): VacancyService {
         if (!::vacancyService.isInitialized) {
-//            val gson = GsonBuilder()
-//                .registerTypeAdapter(FiltersDto::class.java, FilterDataDeserializer())
-//                .create()
+            val gsonFactory = GsonBuilder()
+                .registerTypeAdapterFactory(SealedFilterAdapterFactory())
+                .create()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.1.79:8081/api/")  // Либо 192.168.1.64, если GPON5 сеть
+                .baseUrl("http://192.168.1.79:8081/")  // Либо 192.168.1.64, если GPON5 сеть
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gsonFactory))
                 .build()
             vacancyService = retrofit.create(VacancyService::class.java)
         }
