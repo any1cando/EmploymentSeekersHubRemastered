@@ -94,9 +94,9 @@ class DetailedVacancyFragment : Fragment() {
                         binding?.btnRespond?.visibility = View.VISIBLE
                     }
                 }
-                // TODO: Сделать разные обработки с флагом на обновления фрагмента со всеми вакансиями
+                // TODO: Сделать разные обработки ответов от сервера
                 else {
-                    Toast.makeText(requireContext(), "Something's wrong with this vacancy. Try to refresh all vacancies", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Something's wrong with this vacancy. Try to refresh a list of vacancies", Toast.LENGTH_LONG).show()
                     findNavController().popBackStack()
                 }
             }
@@ -104,7 +104,7 @@ class DetailedVacancyFragment : Fragment() {
             override fun onFailure(call: Call<VacancyDto>, t: Throwable) {
                 Log.i("Status:", "OnResponse's fail")
                 Log.i("Error:", t.message.toString())
-                Toast.makeText(requireContext(), "Some error occurred with the server", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Some error occurred with the internet", Toast.LENGTH_LONG).show()
             }
 
         })

@@ -100,7 +100,7 @@ class AuthorizationFragment : Fragment() {
 
         viewModel.apiClient.getAuthAndRegService().performAuthorization(authorizationInfo).enqueue(object : Callback<UserTokenResponse> {
             override fun onResponse(call: Call<UserTokenResponse>, response: Response<UserTokenResponse>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful) {  // Запрос успешный, код 200
 
                     sessionManager.saveAccessToken(response.body()?.accessToken)
                     sessionManager.saveRefreshToken(response.body()?.refreshToken)
@@ -123,7 +123,7 @@ class AuthorizationFragment : Fragment() {
             override fun onFailure(call: Call<UserTokenResponse>, t: Throwable) {
                 Log.i("Status:", "OnResponse's fail")
                 Log.i("Error:", t.message.toString())
-                Toast.makeText(requireContext(), "Some error occurred with the server", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Some error occurred with the internet", Toast.LENGTH_LONG).show()
             }
 
         })

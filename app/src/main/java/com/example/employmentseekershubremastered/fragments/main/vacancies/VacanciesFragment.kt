@@ -6,15 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.employmentseekershubremastered.FiltersDrawer
+import com.example.employmentseekershubremastered.R
 import com.example.employmentseekershubremastered.ViewModel
 import com.example.employmentseekershubremastered.adapters.VacancyAdapter
 import com.example.employmentseekershubremastered.databinding.FragmentVacanciesBinding
 import com.example.employmentseekershubremastered.model.dto.main.VacancyDto
+import com.example.employmentseekershubremastered.model.dto.main.filters.VacancyFilterListDto
+import okhttp3.internal.wait
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +37,7 @@ class VacanciesFragment : Fragment() {
     private var binding: FragmentVacanciesBinding? = null
     private lateinit var viewModel: ViewModel
     private val vacancyAdapter: VacancyAdapter = VacancyAdapter()
+    private lateinit var filtersDrawer: FiltersDrawer
 
     // Создаем пока что пустой список для вакансий, который потом заполним.
     private var vacanciesList: List<VacancyDto> = emptyList()
@@ -58,8 +65,13 @@ class VacanciesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Создали инстанс класса, у которого есть методы отрисовки фильтров и Нашли LinearLayout, в который надо отрисовывать фильтры.
+        filtersDrawer = FiltersDrawer(binding?.nvFilters?.getHeaderView(0)?.findViewById(R.id.llFilters), requireContext())
 
+        // Получаем первые 20 вакансий
         getVacancies()
+
+        getFilters()
     }
 
 
@@ -89,6 +101,25 @@ class VacanciesFragment : Fragment() {
     }
 
 
+    /** Метод, который отправляет запрос на получения всех фильтров на сервер */
+    private fun getFilters() {
+        viewModel.apiClient.getVacancyService().getFilters().enqueue(object : Callback<VacancyFilterListDto> {
+            override fun onResponse(call: Call<VacancyFilterListDto>, response: Response<VacancyFilterListDto>) {
+                if (response.isSuccessful) {
+                    filtersDrawer.drawFilters(response.body()!!)
+                }
+            }
+
+            override fun onFailure(call: Call<VacancyFilterListDto>, t: Throwable) {
+                Log.i("Status:", "OnResponse's fail")
+                Log.i("Error:", t.message.toString())
+                Toast.makeText(requireContext(), "Some error occurred with the internet", Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
+
     /** Метод, который отправляет запрос на получение списка вакансий */
     private fun getVacancies() {
         viewModel.apiClient.getVacancyService().getVacancies().enqueue(object : Callback<List<VacancyDto>> {
@@ -97,12 +128,18 @@ class VacanciesFragment : Fragment() {
                     vacanciesList = response.body()!!  // Делаю вызов принудительным с "!!", так как с сервера точно придет какая-то база вакансий.
                     vacancyAdapter.update(vacanciesList)  // Обновляю список вакансий
                 }
+                else {
+                    when (response.code()) {
+                        400 -> println("TODO")  // Сделать повторную отправку метода
+                        else -> println("TODO")
+                    }
+                }
             }
 
             override fun onFailure(call: Call<List<VacancyDto>>, t: Throwable) {
                 Log.i("Status:", "OnResponse's fail")
                 Log.i("Error:", t.message.toString())
-                Toast.makeText(requireContext(), "Some error occurred with the server", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Some error occurred with the internet", Toast.LENGTH_LONG).show()
             }
 
         })
