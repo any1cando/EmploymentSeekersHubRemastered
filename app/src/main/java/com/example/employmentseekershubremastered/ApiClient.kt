@@ -50,7 +50,7 @@ class ApiClient() {
                 .create()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.1.79:8081/")  // Либо 192.168.1.64, если GPON5 сеть
+                .baseUrl("http://192.168.1.64:8081/")  // Либо 192.168.1.64, если GPON сеть, а не 5
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gsonFactory))
                 .build()

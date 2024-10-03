@@ -19,11 +19,11 @@
 
             <SearchView
                 android:id="@+id/svVacancies"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toStartOf="@id/ibFilters"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvVacancies"
@@ -37,13 +37,12 @@
             <ImageButton
                 android:id="@+id/ibFilters"
                 android:layout_width="50dp"
-                android:layout_height="0dp"
+                android:layout_height="50dp"
                 android:src="@drawable/ic_vector_vacancies_filters"
                 android:background="@null"
                 android:foreground="@null"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/svVacancies"
-                app:layout_constraintBottom_toBottomOf="@id/svVacancies"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:contentDescription="@string/todo">
 
             </ImageButton>
