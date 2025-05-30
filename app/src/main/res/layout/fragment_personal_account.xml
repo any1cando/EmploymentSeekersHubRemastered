@@ -3,12 +3,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.main.PersonalAccountFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/mainWhite"
+    tools:context=".fragments.main.profile.PersonalAccountFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FF9800"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/mainWhite">
+
+        <TextView
+            android:id="@+id/tvInfoLabel"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/information_about_you"
+            android:textSize="24sp"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Information about you:"/>
+
+        <TextView
+            android:id="@+id/tvFirstNameLabel"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvInfoLabel"
+            tools:text="First name:"/>
+
+        <TextView
+            android:id="@+id/tvFirstName"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:text=""
+            app:layout_constraintStart_toEndOf="@id/tvFirstNameLabel"
+            app:layout_constraintTop_toBottomOf="@id/tvInfoLabel"
+            tools:text="Maxim"/>
+
+        <TextView
+            android:id="@+id/tvLastNameLabel"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text=""
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFirstNameLabel"
+            tools:text="Last name:"/>
+
+        <TextView
+            android:id="@+id/tvLastName"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text=""
+            app:layout_constraintStart_toEndOf="@id/tvLastNameLabel"
+            app:layout_constraintTop_toTopOf="@id/tvLastNameLabel"
+            tools:text="Kumantsov"/>
+
+        <TextView
+            android:id="@+id/tvEmailLabel"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text=""
+            app:layout_constraintTop_toBottomOf="@id/tvLastNameLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Email address:"/>
+
+        <TextView
+            android:id="@+id/tvEmail"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text=""
+
+            app:layout_constraintStart_toEndOf="@id/tvEmailLabel"
+            app:layout_constraintTop_toTopOf="@id/tvEmailLabel"
+            tools:text="maksimchik2003@bk.ru"/>
+
+        <TextView
+            android:id="@+id/tvEditData"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/change_info_data"
+            android:textColor="@color/selector_color_text_view_link"
+            android:focusable="true"
+            android:clickable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

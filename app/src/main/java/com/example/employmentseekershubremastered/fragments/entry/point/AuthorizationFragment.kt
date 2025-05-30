@@ -19,14 +19,10 @@ import com.example.employmentseekershubremastered.model.dto.entry.point.UserToke
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class AuthorizationFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
 
     private var binding: FragmentAuthorizationBinding? = null
     private lateinit var viewModel: ViewModel
@@ -41,10 +37,6 @@ class AuthorizationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -58,22 +50,24 @@ class AuthorizationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Делаю обработчик нажатия на текст "Sign in!", то есть перехожу на фрагмент регистрации.
-        binding?.tvRegistration?.setOnClickListener {
-            (activity as MainActivity).navigateToFragment(RegistrationFragment(), true)
-        }
+        binding?.apply {
+            // Делаю обработчик нажатия на текст "Sign in!", то есть перехожу на фрагмент регистрации.
+            tvRegistration.setOnClickListener {
+                (activity as MainActivity).navigateToFragment(RegistrationFragment(), true)
+            }
 
-        // Обрабатываем изменения в полях авторизации и добавляем их в ViewModel.
-        binding?.etLogin?.doOnTextChanged { textEmail, _, _, _ ->
-            viewModel.emailAuthorization = textEmail.toString()
-        }
-        binding?.etPassword?.doOnTextChanged { textPassword, _, _, _ ->
-            viewModel.passwordAuthorization = textPassword.toString()
-        }
+            // Обрабатываем изменения в полях авторизации и добавляем их в ViewModel.
+            etLogin.doOnTextChanged { textEmail, _, _, _ ->
+                viewModel.emailAuthorization = textEmail.toString()
+            }
+            etPassword.doOnTextChanged { textPassword, _, _, _ ->
+                viewModel.passwordAuthorization = textPassword.toString()
+            }
 
-        // Делаю обработчик нажатия на кнопку "Log in", то есть авторизации.
-        binding?.btnAuthorization?.setOnClickListener {
-            authRequest()
+            // Делаю обработчик нажатия на кнопку "Log in", то есть авторизации.
+            btnAuthorization.setOnClickListener {
+                authRequest()
+            }
         }
     }
 
@@ -138,17 +132,5 @@ class AuthorizationFragment : Fragment() {
         viewModel.passwordRegistration = null
         viewModel.emailAuthorization = null
         viewModel.passwordAuthorization = null
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AuthorizationFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

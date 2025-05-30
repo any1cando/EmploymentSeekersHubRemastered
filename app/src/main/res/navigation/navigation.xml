@@ -16,9 +16,13 @@
 
     <fragment
         android:id="@+id/personal_account_fragment"
-        android:name="com.example.employmentseekershubremastered.fragments.main.PersonalAccountFragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.profile.PersonalAccountFragment"
         android:label="fragment_second"
-        tools:layout="@layout/fragment_personal_account" />
+        tools:layout="@layout/fragment_personal_account" >
+        <action
+            android:id="@+id/action_personal_account_fragment_to_edtiProfileDataFragment"
+            app:destination="@id/edtiProfileDataFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/my_questionnaires_fragment"
@@ -35,5 +39,11 @@
             android:name="vacancy"
             app:argType="com.example.employmentseekershubremastered.model.dto.main.VacancyDto"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/edtiProfileDataFragment"
+        android:name="com.example.employmentseekershubremastered.fragments.main.profile.EditProfileDataFragment"
+        android:label="fragment_edti_profile_data"
+        tools:layout="@layout/fragment_edit_profile_data" />
 
 </navigation>

@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="content_description">Content Description</string>
     <string name="todo">TODO</string>
+    <string name="information_about_you">Information about you:</string>
+    <string name="change_info_data">Change Info Data</string>
 </resources>
